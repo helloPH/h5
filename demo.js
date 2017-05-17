@@ -1,7 +1,7 @@
 var backView = document.getElementById('backView');
 
-function animation(ele) {
-
+function animation() {
+   alert("hello");
 
 }
 animation(backView);
