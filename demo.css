@@ -1,4 +1,11 @@
+/*
+   #  表示 id 选择器   
+   .  表示 类 选择器
+
+*/
 #backView {
+    box-shadow: 0 0 10px 20px red;
+    border-radius: 15px;
     width: 200px;
     height: 200px;
     background-color: green;
