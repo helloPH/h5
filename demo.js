@@ -11,36 +11,59 @@ link.rel = "stylesheet";
 link.href = url; 
 document.getElementsByTagName( "head" )[0].appendChild( link ); 
 }; 
-function gestureLock() { 
+
+loadCss("demo.css");
+// loadCss("demo.js");
+function maskView(contentView){ // 弹出框的 背景
+  var maskV = document.createElement("div");
+  maskV.style.left="0";
+  maskV.style.top="0";
+  maskV.style.position="absolute";
+  maskV.style.width =  document.body.offsetWidth + "px";
+  maskV.style.height = screen.height + "px";
+  maskV.onclick=removeFromSuperView;
+
+  document.body.appendChild(maskV);
+  maskV.appendChild(contentView);  
+  contentView.style.left=(parseFloat(maskV.style.width)-parseFloat(contentView.style.width))/2 + "px";
+  contentView.style.top= (parseFloat(maskV.style.height)-parseFloat(contentView.style.height))/2 + "px";
+   
+  function removeFromSuperView(){
+   document.body.removeChild(maskV);
+  };
+  return maskV;
+}
+
+
+function gestureLock(callBack) { // 手势界面 
+    var  bWidth = document.body.offsetWidth;
+    bWidth=300;
+
     var backV=document.createElement("div");//创建一个div对象（背景层） //动态创建元素，这里创建的是 div 
     backV.style.position="absolute"; 
     backV.style.top="0"; 
     backV.style.left="0"; 
     backV.style.background="white"; 
     backV.style.opacity=1;
-    backV.style.width=screen.width + "px"; 
-    backV.style.height=screen.height + "px"; 
-    backV.onclick=removeFromSuperView;
-    document.body.appendChild(backV);//在body内添加该div对象 
+    backV.style.width=bWidth+ "px"; 
+    backV.style.height=bWidth + "px"; 
+    backV.style.borderRadius="px";
+    backV.style.boxShadow="2px 2px 10px 2px gray";  
 
-
-
-         var  sWidth = parseFloat(screen.width);
-         sWidth = document.body.offsetWidth;
-        var countOfSide = 3;
-        var pointS =  sWidth/(countOfSide *3 + 1);
-        var pW = pointS * 2;
+        var countOfSide = 4;
+        var pS =  bWidth/(countOfSide *3 + 1);
+        var pW = pS * 2;
         var pH = pW;
                  
     for (var index = 0; index < countOfSide*countOfSide; index++) {
-        var pX = pointS+(index%countOfSide * (pW + pointS));
-        var pY = pointS+(parseInt(index/countOfSide) * (pH+pointS)); 
+        var pX = pS+(index%countOfSide * (pW + pS));
+        var pY = pS+(parseInt(index/countOfSide) * (pH+pS)); 
         
          var pointBV =   document.createElement("div");
          pointBV.style.position="absolute"; 
          pointBV.style.top=pY + "px"; 
          pointBV.style.left=pX + "px"; 
-         pointBV.style.background="red"; 
+         pointBV.style.background="gray"; 
          pointBV.style.opacity=1;
          pointBV.style.width=pW + "px"; 
          pointBV.style.height=pH + "px"; 
@@ -50,22 +73,22 @@ function gestureLock() {
          pointBV.style.lineHeight=pointBV.style.height;
          pointBV.style.font="px";
          pointBV.setAttribute("align","center");
-         pointBV.tagName=index;
+         pointBV.style.tagName = index;
          backV.appendChild(pointBV);//在body内添加该div对象 
-         alert(pointBV.tagName);
-        //  pointBV.tagName=index;
          pointBV.onclick=pointBVClick;
+
        
-        //  pointBV.setAttribute("onClick","pointBVClick(pointVC);");
     };
     function pointBVClick(){
-             alert(event.target.innerHTML);
-             return;
-         };
-    
-     function removeFromSuperView(){
-         document.body.removeChild(backV);
-     }
+        callBack(event.target.style.tagName);
+        event.stopPropagation();
+
+    };
+    //  function removeFromSuperView(){
+    //      document.body.removeChild(backV);
+    //  }
+
+       return backV;
 }
 // var backView = document.getElementById('backView');
 function animation() {
