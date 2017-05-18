@@ -1,19 +1,16 @@
 function loadScript( url ){ 
-var script = document.createElement( "script" ); 
-script.type = "type/javascipt"; 
-script.src = url; 
-document.getElementsByTagName( "head" )[0].appendChild( script ); 
+    var script = document.createElement( "script" ); 
+    script.type = "type/javascipt"; 
+    script.src = url; 
+    document.getElementsByTagName( "head" )[0].appendChild( script ); 
 }; 
 function loadCss( url ){ 
-var link = document.createElement( "link" ); 
-link.type = "text/css"; 
-link.rel = "stylesheet"; 
-link.href = url; 
-document.getElementsByTagName( "head" )[0].appendChild( link ); 
+    var link = document.createElement( "link" ); 
+    link.type = "text/css"; 
+    link.rel = "stylesheet"; 
+    link.href = url; 
+    document.getElementsByTagName( "head" )[0].appendChild( link ); 
 }; 
-
-loadCss("demo.css");
-// loadCss("demo.js");
 function maskView(contentView){ // 弹出框的 背景
   var maskV = document.createElement("div");
   maskV.style.left="0";
@@ -33,8 +30,6 @@ function maskView(contentView){ // 弹出框的 背景
   };
   return maskV;
 }
-
-
 function gestureLock(callBack) { // 手势界面 
     var  bWidth = document.body.offsetWidth;
     bWidth=300;
@@ -49,6 +44,11 @@ function gestureLock(callBack) { // 手势界面
     backV.style.height=bWidth + "px"; 
     backV.style.borderRadius="px";
     backV.style.boxShadow="2px 2px 10px 2px gray";  
+    backV.addEventListener("touchStart",touchs,false);
+    function touchs(){
+     alert(event);        
+    }    
+
 
         var countOfSide = 4;
         var pS =  bWidth/(countOfSide *3 + 1);
@@ -84,6 +84,8 @@ function gestureLock(callBack) { // 手势界面
         event.stopPropagation();
 
     };
+
+
     //  function removeFromSuperView(){
     //      document.body.removeChild(backV);
     //  }
@@ -94,4 +96,5 @@ function gestureLock(callBack) { // 手势界面
 function animation() {
     alert("hello");
 }
+
 // animation(backView);
