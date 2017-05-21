@@ -8,11 +8,13 @@
     <script type="text/javascript" src="demo.js"></script>
 </head>
 <body>
-    <div id="backView" onclick="gestureLock(function(num){
-       alert(num);
-      })">penghui</div>
+    <div id="backView" onclick="maskView(gestureLock(function(num){
+         alert(num);
+      }))">penghui</div>
     <div  onclick="maskView(gestureLock(function(num){
-       alert(num);
+         alert(num);
       }))">mengban</div>  
+
+   
 </body>
 </html>

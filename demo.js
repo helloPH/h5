@@ -26,7 +26,7 @@ function maskView(contentView){ // 弹出框的 背景
   contentView.style.top= (parseFloat(maskV.style.height)-parseFloat(contentView.style.height))/2 + "px";
    
   function removeFromSuperView(){
-   document.body.removeChild(maskV);
+      document.body.removeChild(maskV);
   };
   return maskV;
 }
@@ -43,11 +43,18 @@ function gestureLock(callBack) { // 手势界面
     backV.style.width=bWidth+ "px"; 
     backV.style.height=bWidth + "px"; 
     backV.style.borderRadius="px";
-    backV.style.boxShadow="2px 2px 10px 2px gray";  
-    backV.addEventListener("touchStart",touchs,false);
-    function touchs(){
-     alert(event);        
-    }    
+    backV.style.boxShadow="2px 2px 10px 2px gray";
+    backV.onmousedown=function(){
+        slide(backV,function  slideBlock(status,x,y){
+           alert(status + " + " + x +  " + " + y);
+           event.stopPropagation();
+        });
+
+       
+
+    };   
+
+    
 
 
         var countOfSide = 4;
@@ -82,7 +89,8 @@ function gestureLock(callBack) { // 手势界面
     function pointBVClick(){
         callBack(event.target.style.tagName);
         event.stopPropagation();
-
+       
+     
     };
 
 
@@ -92,9 +100,65 @@ function gestureLock(callBack) { // 手势界面
 
        return backV;
 }
+
+//  滑动的手势 返回 状态值和移动坐标值
+function slide(targetView,slideBlock){
+    
+
+
+
+    targetView.onmousedown=slideStart;
+    targetView.onmouseup  =slideEnd;
+
+    function slideStart(){
+         targetView.onmousemove=sliding;
+         slideBlock(0,event.clientX-parseFloat(targetView.style.left),event.clientY- parseFloat(targetView.style.top));
+         event.stopPropagation();
+    };  
+    function sliding(event){
+         slideBlock(1,event.clientX-parseFloat(targetView.style.left),event.clientY- parseFloat(targetView.style.top));
+         event.stopPropagation();
+    }  
+    function slideEnd(){
+         slideBlock(2,event.clientX,event.clientY);
+         event.stopPropagation();
+    }
+        slideBlock(2,event.clientX-parseFloat(targetView.style.left),event.clientY-parseFloat(targetView.style.top));
+        event.stopPropagation();
+}
+
 // var backView = document.getElementById('backView');
 function animation() {
     alert("hello");
 }
+// 轮播图
+function wheelImage(images){
+    var backView = document.createElement("div");
+    backView.style.width="600px";
+    backView.style.height="400px";
+    backView.style.left="0";
+    backView.style.top="0";
+    backView.style.overflow="hidden";
+                   
 
+
+   for (var index = 0; index < images.length; index++) {
+       
+
+        var url = images[index];
+        var imgView = document.createElement("div");      
+        // imgView.style.      
+        imgView.style.left=index* parseFloat(backView.style.width) + "px";
+        imgView.style.top="0px";
+        imgView.style.width=backView.style.width;
+        imgView.style.height=backView.style.height;
+        backView.appendChild(imgView);
+        imgView.innerHTML=index;
+   }
+   function changeIndex(index){
+        // backView.style.left=-index * parseFloat(imgView.)      
+   }
+
+ return backView;  
+}
 // animation(backView);
