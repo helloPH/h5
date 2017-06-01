@@ -1,0 +1,21 @@
+body{
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.fl{
+   float: left;
+}
+.fr{
+   float: right;
+}
+.backView{
+    width: 100%;
+    overflow: hidden;
+    background: rgba(200, 200, 200, 0.9);
+}
+.topItem{
+    display: inline-block;
+    background-color: green;
+    font-size: 26px;
+}
