@@ -2,15 +2,15 @@ var pos =[];
 var currentPoint = {"x":0,"y":0};
 
 function  mouse(){
-    var supportTouch;
-    if("onmousedown" in document ) {
-        supportTouch=true;
-    }
-    else {
-        supportTouch=false;
-    }
-     alert(supportTouch);
-     return;
+    // var supportTouch;
+    // if("ontouchend" in document ) {
+    //     supportTouch=true;
+    // }
+    // else {
+    //     supportTouch=false;
+    // }
+    //  alert(supportTouch);
+    //  return;
 
      var targ = event.target;
   
@@ -64,12 +64,14 @@ function containLocation(tar,x,y){
 //    var minY = parseFloat(tar.style.top);
    var minX = tar.offsetLeft;
    var minY = tar.offsetTop;
+  
 
    var maxX = minX + tar.offsetWidth;
    var maxY = minY + tar.offsetHeight;
 //    alert(minX + "+" + maxX + " + " + x );
 //    alert(minY + "+" + maxY + " + " + y );
    if (minX < x &&  x < maxX && minY < y && y < maxY) {
+       alert(minX+'+'+maxX);
        return true;
    }
    return false;
